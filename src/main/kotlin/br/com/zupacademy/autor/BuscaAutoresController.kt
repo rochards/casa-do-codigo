@@ -9,7 +9,7 @@ import io.micronaut.http.annotation.QueryValue
 class BuscaAutoresController(val autorRepository: AutorRepository) {
 
     @Get
-    fun lista(@QueryValue(defaultValue = "") email: String): HttpResponse<Any> {
+    fun lista(@QueryValue(defaultValue = "") email: String): HttpResponse<*> {
         // @QueryValue é equivalente ao @RequestParams do Spring. Ex.: autores?email="autor@mail.com". defaultValue é ""
         // Se vc não fornecer defaultValue = "", vc será obrigado a informar o email na request
         if (email.isEmpty()) {
@@ -20,11 +20,12 @@ class BuscaAutoresController(val autorRepository: AutorRepository) {
         }
 
         autorRepository.findByEmail(email).also { possivelAutor ->
-            if (possivelAutor.isPresent) {
-                return HttpResponse.ok(DetalhesAutorResponse(possivelAutor.get()))
+            return if (possivelAutor.isPresent) {
+                val autor = possivelAutor.get()
+                HttpResponse.ok(DetalhesAutorResponse(autor))
+            } else {
+                HttpResponse.notFound<DetalhesAutorResponse?>()
             }
-
-            return HttpResponse.notFound()
         }
     }
 }
