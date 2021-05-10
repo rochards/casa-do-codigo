@@ -8,11 +8,12 @@ import javax.validation.Valid
 
 @Validated // sem essa anotação, o @Valid não funciona. Não é possível nem fazer o build da aplicação
 @Controller("/autores") // equivalente ao @RestController e @RequestMapping do Spring
-class NovoAutorController {
+class NovoAutorController(val autorRepository: AutorRepository) {
 
     @Post // equivalente ao @PostMapping do Spring
-    fun cadastra(@Valid @Body request: NovoAutorRequest) {
+    fun cadastra(@Valid @Body autorRequest: NovoAutorRequest) {
         // o @Body é equivalente ao @RequestBody do Spring, porém aqui no Micronaut não é obrigatório.
-        println(request)
+        val novoAutor = autorRequest.toModel()
+        autorRepository.save(novoAutor)
     }
 }

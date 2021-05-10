@@ -11,7 +11,9 @@ data class NovoAutorRequest(
     @field:NotBlank val nome: String,
     @field:NotBlank @field:Email val email: String,
     @field:NotBlank @field:Size(max = 400) val descricao: String
-)
+) {
+    fun toModel() = Autor(nome, email, descricao)
+}
 
 /*
 * @Introspected -> essa anotação é necessária para que em tempo de compilação o Micronaut consiga construir a

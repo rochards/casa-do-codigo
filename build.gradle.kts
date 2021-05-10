@@ -28,7 +28,6 @@ dependencies {
     kapt("io.micronaut.data:micronaut-data-processor")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-runtime")
-    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("io.micronaut.kotlin:micronaut-kotlin-runtime")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("javax.annotation:javax.annotation-api")
@@ -38,6 +37,11 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     implementation("io.micronaut:micronaut-validation")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    // Configures SQL DataSources using Hikari Connection Pool
+    runtime("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
+    implementation("org.postgresql:postgresql:42.2.18")
 }
 
 
