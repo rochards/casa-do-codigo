@@ -6,7 +6,7 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.QueryValue
 
 @Controller("/autores")
-class BuscaAutoresController(val autorRepository: AutorRepository) {
+class BuscaAutoresController(private val autorRepository: AutorRepository) {
 
     @Get
     fun lista(@QueryValue(defaultValue = "") email: String): HttpResponse<*> {
