@@ -4,6 +4,7 @@ import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
 import io.micronaut.validation.Validated
+import javax.transaction.Transactional
 import javax.validation.Valid
 
 @Validated // sem essa anotação, o @Valid não funciona. Não é possível nem fazer o build da aplicação
@@ -11,6 +12,7 @@ import javax.validation.Valid
 class NovoAutorController(val autorRepository: AutorRepository) {
 
     @Post // equivalente ao @PostMapping do Spring
+    @Transactional // essa anotação não é obrigatória, pois o método save já abre uma transação com o banco
     fun cadastra(@Valid @Body autorRequest: NovoAutorRequest) {
         // o @Body é equivalente ao @RequestBody do Spring, porém aqui no Micronaut não é obrigatório.
         val novoAutor = autorRequest.toModel()
