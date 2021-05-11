@@ -8,11 +8,18 @@ import javax.validation.constraints.Size
 // lembre-se que uma data class já tem os métodos/funções equals e hashcode, toString e copy
 @Introspected
 data class NovoAutorRequest(
-    @field:NotBlank val nome: String,
-    @field:NotBlank @field:Email val email: String,
-    @field:NotBlank @field:Size(max = 400) val descricao: String
+    @field:NotBlank val nome: String?,
+    @field:NotBlank @field:Email val email: String?,
+    @field:NotBlank @field:Size(max = 400) val descricao: String?
 ) {
-    fun toModel() = Autor(nome, email, descricao)
+    /*
+    * val nome: String? -> necessário indicar que é um nullable, pois caso o cliente não passar determinado campo será
+    * gerado um erro de compilação aqui no Kotlin. Não ia nem passar pela validação.
+    *
+    * !! -> converte uma variável nullable para non-null. Isso quer dizer que estou garantindo ao compilador que essa
+    *  variável virá não nula (pode gerar um NPE, se vier nula).
+    * */
+    fun toModel() = Autor(nome!!, email!!, descricao!!)
 }
 
 /*
