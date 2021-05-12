@@ -5,7 +5,6 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.DisplayName
@@ -19,13 +18,13 @@ internal class NovoAutorControllerTest {
     @field:Client("/")
     lateinit var client: HttpClient
 
-    @field:Inject
-    lateinit var autorRepository: AutorRepository
-
-    @AfterEach
-    internal fun tearDown() {
-        autorRepository.deleteAll()
-    }
+//    @field:Inject
+//    lateinit var autorRepository: AutorRepository
+//
+//    @AfterEach
+//    internal fun tearDown() {
+//        autorRepository.deleteAll()
+//    }
 
     @Test
     @DisplayName("deve cadastrar um novo autor")
